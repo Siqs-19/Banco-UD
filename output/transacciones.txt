@@ -1,1 +1,1 @@
-CREACION cuenta #23 titular:  saldo: $23.000000
+NUEVA CUENTA: 1 - pep saldo: 1234

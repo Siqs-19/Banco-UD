@@ -1,11 +1,11 @@
 /*
- * PROYECTO 8 - SISTEMA DE GESTION DE CUENTAS BANCARIAS
- * Integrantes: Eilen Restrepo, Valentina Umbarila, Sara Quiñonez
- * Fecha: Mayo 9 2026
- * Version: 1.0
- *
- * Descripcion: programa para manejar cuentas bancarias
- * por ahora solo creamos cuentas, consultamos, y hacemos depositos y retiros
+  PROYECTO 8 - SISTEMA DE GESTION DE CUENTAS BANCARIAS
+  Integrantes: Eilen Restrepo, Valentina Umbarila, Sara Quiñonez
+  Fecha: Mayo 9 2026
+  Version: 2.0
+ 
+  Programa: para manejar cuentas bancarias
+
  */
 
 
@@ -43,19 +43,22 @@ void retirar();
 void transferir();
 void invertir();
 void guardarEnArchivo();
-void cargarDeArchivo();
+void cargarArchivo();
 int buscarCuenta(int num);
 
 
 //PROGRAMA PRINCIPAL
 int main() {
+    cout << "--------------------------------------" << endl;
+    cout << "Este programa permite gestionar cuentas bancarias y\nofrecer a sus usuarios opciones básicas de inversión." << endl;
+    cout << endl << "--------------------------------------" << endl;
 
     //Cargar cuentas
-    cargarDeArchivo();
+    cargarArchivo();
 
     int opcion;
 
-    cout << "--------------------------------------" << endl;
+    cout << endl <<"--------------------------------------" << endl;
     cout << "   SISTEMA BANCARIO - PROYECTO 8" << endl;
     cout << "--------------------------------------" << endl;
 
@@ -120,7 +123,7 @@ void guardarEnArchivo() {
 
 
 //  CARGAR CUENTAS DESDE ARCHIVO
-void cargarDeArchivo() {
+void cargarArchivo() {
     ifstream archivo("cuentas.txt");
 
     //Errer no hay archivo
@@ -150,7 +153,6 @@ void cargarDeArchivo() {
 
 
 //  BUSCAR CUENTA POR NUMERO
-//  retorna el indice o -1 si no existe
 int buscarCuenta(int num) {
     for (int i = 0; i < totalCuentas; i++) {
         if (cuentas[i].numero == num) {
@@ -164,7 +166,7 @@ int buscarCuenta(int num) {
 
 //  1. CREAR CUENTA
 void crearCuenta() {
-    cout << endl << "-- CREAR CUENTA --" << endl;
+    cout << "\n-- CREAR CUENTA --\n";
 
     //Verificar
     if (totalCuentas >= MAX_CUENTAS) {
@@ -172,49 +174,54 @@ void crearCuenta() {
         return;
     }
 
-    Cuenta nueva;
+    
+    Cuenta newCuenta;
 
 
     cout << "Numero de cuenta: ";
-    cin >> nueva.numero;
+    cin >> newCuenta.numero;
     cin.ignore();
 
     //Validacion
-    if (nueva.numero <= 0) {
+    if (newCuenta.numero <= 0) {
         cout << "El numero debe ser positivo" << endl;
-        return;
+        cin >> newCuenta.numero;
+        cin.ignore();
     }
 
-    if (buscarCuenta(nueva.numero) != -1) {
+    if (buscarCuenta(newCuenta.numero) != -1) {
         cout << "Ya existe una cuenta con ese numero" << endl;
-        return;
+        cin >> newCuenta.numero;
+        cin.ignore();
     }
 
     //Nombre
     cout << "Nombre del titular: ";
-    getline(cin, nueva.nombre);
+    getline(cin, newCuenta.nombre);
 
     //Saldo
-    cout << "Saldo inicial: ";
-    cin >> nueva.saldo;
+    cout << "Saldo inicial: $";
+    cin >> newCuenta.saldo;
     cin.ignore();
 
-    if (nueva.saldo < 0) {
+    if (newCuenta.saldo < 0) {
         cout << "El saldo no puede ser negativo" << endl;
-        return;
+        cout << "Ingrese un saldo valido: $";
+        cin >> newCuenta.saldo;
+        cin.ignore();
     }
 
     //Guardar
-    cuentas[totalCuentas] = nueva;
+    cuentas[totalCuentas] = newCuenta;
     totalCuentas++;
     guardarEnArchivo();
 
     // Registrar en transacciones
     ofstream trans("transacciones.txt", ios::app);
-    trans << "NUEVA CUENTA: " << nueva.numero << " - " << nueva.nombre << " saldo: " << nueva.saldo << endl;
+    trans << "NUEVA CUENTA: " << newCuenta.numero << " - " << newCuenta.nombre << " saldo: " << newCuenta.saldo << endl;
     trans.close();
 
-    cout << "Cuenta creada con exito!" << endl;
+    cout << "Cuenta creada exitosamente" << endl;
 }
 
 
@@ -257,18 +264,27 @@ void depositar() {
     // Existe ?
     if (indice == -1) {
         cout << "Cuenta no encontrada" << endl;
-        return;
+        cout << "Ingrese un numero de cuenta valido o ingrese 0 para salir: ";
+        cin >> num;
+        if (num == 0){
+        	return;
+		}
+		else {
+			cin.ignore(); 
+		}
     }
 
     double monto;
-    cout << "Monto a depositar: ";
+    cout << "Monto a depositar: $";
     cin >> monto;
     cin.ignore();
 
     //Validar
     if (monto <= 0) {
         cout << "El monto debe ser mayor a 0" << endl;
-        return;
+        cout << "Ingrese un monto valido: $";
+        cin >> monto;
+        cin.ignore();
     }
 
     
@@ -304,19 +320,27 @@ void retirar() {
     cout << "Saldo actual: $" << cuentas[indice].saldo << endl;
 
     double monto;
-    cout << "Monto a retirar: ";
+    cout << "Monto a retirar: $";
     cin >> monto;
     cin.ignore();
 
     if (monto <= 0) {
         cout << "El monto debe ser mayor a 0" << endl;
-        return;
+        cout << "Ingrese un monto valido o ingrese 0 para salir: $";
+        cin >> monto;
+        if (monto == 0){
+        	return;
+        }
+        else {
+        	cin.ignore();
+        }
     }
 
     //Verificar
     if (monto > cuentas[indice].saldo) {
         cout << "Saldo insuficiente" << endl;
-        return;
+        cin >> monto;
+        cin.ignore();
     }
 
     cuentas[indice].saldo -= monto;
@@ -339,22 +363,26 @@ void transferir() {
     cout << "Cuenta origen: ";
     cin >> numOrigen;
     cin.ignore();
+	
+	int cuentaOrigen  = buscarCuenta(numOrigen);
+	
+	if (cuentaOrigen == -1) {
+        cout << "La cuenta origen no existe" << endl;
+        cin >> numOrigen;
+        cin.ignore();
+    }
 
+	
     cout << "Cuenta destino: ";
     cin >> numDestino;
     cin.ignore();
 
-    int iOrigen  = buscarCuenta(numOrigen);
-    int iDestino = buscarCuenta(numDestino);
+    int cuentaDestino = buscarCuenta(numDestino);
 
-    if (iOrigen == -1) {
-        cout << "La cuenta origen no existe" << endl;
-        return;
-    }
-
-    if (iDestino == -1) {
+    if (cuentaDestino == -1) {
         cout << "La cuenta destino no existe" << endl;
-        return;
+        cin >> numDestino;
+        cin.ignore();
     }
 
     if (numOrigen == numDestino) {
@@ -362,7 +390,7 @@ void transferir() {
         return;
     }
 
-    cout << "Saldo disponible: $" << cuentas[iOrigen].saldo << endl;
+    cout << "Saldo disponible: $" << cuentas[cuentaOrigen].saldo << endl;
 
     double monto;
     cout << "Monto a transferir: ";
@@ -371,17 +399,19 @@ void transferir() {
 
     if (monto <= 0) {
         cout << "El monto debe ser mayor a 0" << endl;
-        return;
+        cin >> monto;
+        cin.ignore();
     }
 
-    if (monto > cuentas[iOrigen].saldo) {
+    if (monto > cuentas[cuentaOrigen].saldo) {
         cout << "Saldo insuficiente" << endl;
-        return;
+        cin >> monto;
+        cin.ignore();
     }
 
     //Transferir
-    cuentas[iOrigen].saldo  -= monto;
-    cuentas[iDestino].saldo += monto;
+    cuentas[cuentaOrigen].saldo  -= monto;
+    cuentas[cuentaDestino].saldo += monto;
 
     guardarEnArchivo();
 
@@ -390,8 +420,8 @@ void transferir() {
     trans.close();
 
     cout << "Transferencia exitosa!" << endl;
-    cout << "Saldo cuenta origen:  $" << cuentas[iOrigen].saldo << endl;
-    cout << "Saldo cuenta destino: $" << cuentas[iDestino].saldo << endl;
+    cout << "Saldo cuenta origen:  $" << cuentas[cuentaOrigen].saldo << endl;
+    cout << "Saldo cuenta destino: $" << cuentas[cuentaDestino].saldo << endl;
 }
 
 
@@ -409,7 +439,8 @@ void invertir() {
 
     if (indice == -1) {
         cout << "Cuenta no encontrada" << endl;
-        return;
+        cin >> num;
+        cin.ignore();
     }
 
     cout << "Saldo disponible: $" << cuentas[indice].saldo << endl;
@@ -421,12 +452,21 @@ void invertir() {
 
     if (monto <= 0) {
         cout << "El monto debe ser mayor a 0" << endl;
-        return;
+        cout << "Ingrese un monto valido: $";
+        cin >> monto;
+        cin.ignore();
     }
 
     if (monto > cuentas[indice].saldo) {
         cout << "Saldo insuficiente" << endl;
-        return;
+        cout << "Ingrese un monto valido o ingrese 0 para salir: $";
+        cin >> monto; 
+        if (monto == 0){
+        	return;
+		}
+		else {
+			cin.ignore();
+		}
     }
 
     cout << "Tipo de inversion:" << endl;
@@ -444,7 +484,9 @@ void invertir() {
 
     if (meses <= 0) {
         cout << "Los meses deben ser positivos" << endl;
-        return;
+        cout << "Ingrese un numero de meses valido: ";
+        cin >> meses;
+        cin.ignore();
     }
 
     //CALCULAR
@@ -456,7 +498,17 @@ void invertir() {
         tasaAnual = TASA_CDT;
     } else {
         cout << "Opcion invalida" << endl;
-        return;
+        cout << "Ingrese una opcion valida: ";
+        cin >> tipo;
+        cin.ignore();
+        if (tipo == 1) {
+            tasaAnual = TASA_ALTO;
+        } else if (tipo == 2) {
+            tasaAnual = TASA_CDT;
+        } else {
+            cout << "Opcion invalida, se cancelara la inversion" << endl;
+            return;
+        }
     }
 
     double tasaMensual = pow(1.0 + tasaAnual, 1.0 / 12.0) - 1.0;
@@ -465,6 +517,8 @@ void invertir() {
     double valorFuturo = monto * pow(1.0 + tasaMensual, meses);
     double ganancia    = valorFuturo - monto;
 
+
+    //INVERSIONES TOTALES
     cout << endl << "---- RESULTADO ----" << endl;
     cout << "Monto invertido: $" << monto << endl;
     cout << "Plazo: " << meses << " meses" << endl;
@@ -488,4 +542,5 @@ void invertir() {
 
     // TODO: guardar la inversion y crear un menu para consultar inversiones
 }
+
 
