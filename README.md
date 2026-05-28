@@ -1,4 +1,4 @@
-# Banco-UD  Sistema de Gestión de Cuentas Bancarias
+# Banco-UD      Sistema de Gestión de Cuentas Bancarias
 
 Proyecto 8 — Programación
 
@@ -20,7 +20,7 @@ Toda la información se guarda automáticamente en archivos de texto para que no
 -Instalar compilador MinGW (Windows) o g++ (Linux/macOS) y la extensión C/C++ (para ejecutar con Visual Studio Code) 	
 
 # Ejecución: 
-### OPCION 1 - EJECUCION MEDIANTE UNA TERMINAL:
+### OPCION 1 - EJECUCIÓN MEDIANTE UNA TERMINAL:
 
   Abrir una terminal en la carpeta donde está el archivo BancoUD.cpp y ejecutar:
         
@@ -40,10 +40,10 @@ Linux / macOS:
 
 <br/>
 
-### OPCION 2 - EJECICION EN DEV++:
-  1. Descargar y abrir el programa de Dev++.
+### OPCION 2 - EJECUCIÓN EN DEV++:
+  1. Descargar y abrir el programa de Dev++. [(Descargar Dev++)](https://sourceforge.net/projects/dev-cpp/)
   
-  2. Ir a Archivo → Abrir proyecto o archivo y seleccionar proyecto_banco_v2.cpp.
+  2. Ir a Archivo → Abrir proyecto o archivo y seleccionar BancoUD.cpp.
   
   3. Ir a Archivo → Nuevo → Proyecto, elegir Aplicación de consola, marcar C++ y darle un nombre (ej. Banco). Confirmar con Aceptar.
   
@@ -54,7 +54,7 @@ Linux / macOS:
 <br/>
 
 ### OPCION 3 - VISUAL STUDIO CODE:
-  1. Descargar y abrir VS Code.
+  1. Descargar y abrir VS Code.[(Descargar VS Code)](https://code.visualstudio.com/Download)
   
   2. Ir a Archivo → Abrir carpeta y seleccionar la carpeta que contiene BancoUD.cpp.
   
