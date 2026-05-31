@@ -1,5 +1,5 @@
 /*
-  PROYECTO 8 - SISTEMA DE GESTIÓN DE CUENTAS BANCARIAS
+  PROYECTO 8 - SISTEMA DE GESTIï¿½N DE CUENTAS BANCARIAS
   Integrantes: Eilen Restrepo, Valentina Umbarila, Sara QuiÃ±onez
   Fecha: Mayo 30 2026
   Version: 2.1
@@ -9,7 +9,7 @@
  */
 
 
-// librerías
+// librerï¿½as
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,7 +22,7 @@ using namespace std;
 #define MAX_CUENTAS 50   
 #define MAX_INVERSIONES 100
 
-// Tasas de interés
+// Tasas de interï¿½s
 #define TASA_ALTO 0.0925
 #define TASA_CDT  0.11
 #define IMPUESTO_4X1000 0.04
@@ -34,7 +34,7 @@ struct Cuenta {
     double saldo;
 };
 
-// Estructura de inversión
+// Estructura de inversiï¿½n
 struct Inversion {
     int numeroCuenta;
     string tipo;
@@ -87,13 +87,13 @@ int main() {
     cout << "  *              B A N C O   U D              *" << endl;
     cout << "  *       Universidad Distrital F.J.C.        *" << endl;
     cout << "  *                                           *" << endl;
-    cout << "  *      Sistema de Gestión de Cuentas        *" << endl;
-    cout << "  *         Bancarias con Inversion           *" << endl;
+    cout << "  *      Sistema de GestiÃ³n de Cuentas        *" << endl;
+    cout << "  *         Bancarias con InversiÃ³n           *" << endl;
     cout << "  *                                           *" << endl;
     cout << "  *********************************************" << endl;
     cout << endl;
 
-    // Ciclo principal del menú
+    // Ciclo principal del menï¿½
     do {
         cout << endl;
         cout << " ===========================================" << endl;
@@ -140,7 +140,7 @@ int main() {
 			cout << "  *********************************************" << endl;
 			cout << endl;
         } else {
-            cout << "Opcion no válida, por favor intente de nuevo" << endl;
+            cout << "Opcion no vï¿½lida, por favor intente de nuevo" << endl;
         }
 
     } while (opcion != 0);
@@ -253,7 +253,7 @@ void cargarInversiones() {
 
 
 
-//  Busca cuenta por número
+//  Busca cuenta por nï¿½mero
 int buscarCuenta(int num) {
     for (int i = 0; i < totalCuentas; i++) {
         if (cuentas[i].numero == num) {
@@ -269,9 +269,9 @@ int buscarCuenta(int num) {
 void crearCuenta() {
     cout << "\n--- CREAR CUENTA BANCARIA ---\n";
 
-    //Verificar el máximo de cuentas
+    //Verificar el mï¿½ximo de cuentas
     if (totalCuentas >= MAX_CUENTAS) {
-        cout << "Error: límite de cuentas alcanzado" << endl;
+        cout << "Error: lï¿½mite de cuentas alcanzado" << endl;
         return;
     }
 
@@ -279,20 +279,20 @@ void crearCuenta() {
     Cuenta newCuenta;
 
 
-    cout << " Número de cuenta: ";
+    cout << " Nï¿½mero de cuenta: ";
     cin >> newCuenta.numero;
     cin.ignore();
 
-    //Validación
+    //Validaciï¿½n
     while (newCuenta.numero <= 0) {
-        cout << " Error: El número de la cuenta tiene que ser positiva. Intente de nuevo (0 para salir): " << endl;
+        cout << " Error: El nï¿½mero de la cuenta tiene que ser positiva. Intente de nuevo (0 para salir): " << endl;
         cin >> newCuenta.numero;
         cin.ignore();
         if (newCuenta.numero == 0) return;
     }
 
     while (buscarCuenta(newCuenta.numero) != -1) {
-        cout << " Ya existe una cuenta con ese número" << endl;
+        cout << " Ya existe una cuenta con ese nï¿½mero" << endl;
         cin >> newCuenta.numero;
         cin.ignore();
     }
@@ -307,7 +307,7 @@ void crearCuenta() {
     cin.ignore();
 
     while (newCuenta.saldo < 0) {
-        cout << " El saldo no puede ser negativo. Ingrese un saldo válido: $" << endl;
+        cout << " El saldo no puede ser negativo. Ingrese un saldo vï¿½lido: $" << endl;
         cin >> newCuenta.saldo;
         cin.ignore();
     }
@@ -361,16 +361,16 @@ void depositar() {
     cout << endl << "--- DEPOSITAR DINERO ---" << endl;
 
     int num;
-    cout << " Número de cuenta: ";
+    cout << " Nï¿½mero de cuenta: ";
     cin >> num;
     cin.ignore();
 
     int indice = buscarCuenta(num);
 
-    // ¿Existe?
+    // ï¿½Existe?
     while (indice == -1) {
         cout << " Cuenta no encontrada" << endl;
-        cout << " Ingrese un número de cuenta válido o ingrese 0 para salir: ";
+        cout << " Ingrese un nï¿½mero de cuenta vï¿½lido o ingrese 0 para salir: ";
         cin >> num;
         cin.ignore();
         if (num == 0) return;
@@ -385,7 +385,7 @@ void depositar() {
     // Validar
     if (monto <= 0) {
         cout << " El monto debe ser mayor a 0" << endl;
-        cout << " Ingrese un monto válido: $";
+        cout << " Ingrese un monto vï¿½lido: $";
         cin >> monto;
         cin.ignore();
     }
@@ -396,10 +396,10 @@ void depositar() {
 
     // Guardar
     ofstream trans("transacciones.txt", ios::app);
-    trans << "DEPÓSITO cuenta " << num << " monto: " << monto << " saldo nuevo: " << cuentas[indice].saldo << endl;
+    trans << "DEPï¿½SITO cuenta " << num << " monto: " << monto << " saldo nuevo: " << cuentas[indice].saldo << endl;
     trans.close();
 
-    cout << " Depósito exitoso... Nuevo saldo: $" << cuentas[indice].saldo << endl;
+    cout << " Depï¿½sito exitoso... Nuevo saldo: $" << cuentas[indice].saldo << endl;
 }
 
 
@@ -409,7 +409,7 @@ void retirar() {
     cout << endl << "--- RETIRAR DINERO ---" << endl;
 
     int num;
-    cout << " Número de cuenta: ";
+    cout << " Nï¿½mero de cuenta: ";
     cin >> num;
     cin.ignore();
 
@@ -429,7 +429,7 @@ void retirar() {
 
     while (monto <= 0) {
         cout << " El monto debe ser mayor a 0" << endl;
-        cout << " Ingrese un monto válido (0 para salir): $";
+        cout << " Ingrese un monto vï¿½lido (0 para salir): $";
         cin >> monto;
         cin.ignore();
         if (monto == 0) return;
@@ -546,7 +546,7 @@ void invertir() {
     cout << endl << "--- INVERTIR DINERO ---" << endl;
 
     int num;
-    cout << " Número de cuenta: ";
+    cout << " Nï¿½mero de cuenta: ";
     cin >> num;
     cin.ignore();
 
@@ -554,7 +554,7 @@ void invertir() {
 
     if (indice == -1) {
         cout << " Cuenta no encontrada" << endl;
-        cout << " Ingrese un número de cuenta válido o ingrese 0 para salir: ";
+        cout << " Ingrese un nï¿½mero de cuenta vï¿½lido o ingrese 0 para salir: ";
         cin >> num;
         if (num == 0){
         	return;
@@ -580,33 +580,33 @@ void invertir() {
 
     while (monto > cuentas[indice].saldo) {
         cout << " Saldo insuficiente. Saldo disponible: $" << cuentas[indice].saldo << endl;
-   	    cout << " Ingrese un monto válido (0 para salir): $";
+   	    cout << " Ingrese un monto vï¿½lido (0 para salir): $";
     	cin >> monto;
     	cin.ignore();
     	if (monto == 0) return;
 }
 
-    cout << " --------- Tipo de inversión ---------" << endl;
+    cout << " --------- Tipo de inversiï¿½n ---------" << endl;
     cout << " [1] Alto Rendimiento (9.25% anual)   " << endl;
     cout << " [2] CDT (11% anual)                  " << endl;
-    cout << " Seleccione una opción: ";
+    cout << " Seleccione una opciï¿½n: ";
     int tipo;
     cin >> tipo;
     cin.ignore();
 
     int meses;
-    cout << " ¿A cúantos meses quiere dejar la inversión?: ";
+    cout << " ï¿½A cï¿½antos meses quiere dejar la inversiï¿½n?: ";
     cin >> meses;
     cin.ignore();
 
     if (meses <= 0) {
         cout << " Los meses deben ser positivos" << endl;
-        cout << " Ingrese un número de meses válido: ";
+        cout << " Ingrese un nï¿½mero de meses vï¿½lido: ";
         cin >> meses;
         cin.ignore();
     }
 
-    // Cálculos
+    // Cï¿½lculos
     double tasaAnual;
 
     if (tipo == 1) {
@@ -614,8 +614,8 @@ void invertir() {
     } else if (tipo == 2) {
         tasaAnual = TASA_CDT;
     } else {
-        cout << " Opcion inválida" << endl;
-        cout << " Ingrese una opcion válida: ";
+        cout << " Opcion invï¿½lida" << endl;
+        cout << " Ingrese una opcion vï¿½lida: ";
         cin >> tipo;
         cin.ignore();
         if (tipo == 1) {
@@ -623,7 +623,7 @@ void invertir() {
         } else if (tipo == 2) {
             tasaAnual = TASA_CDT;
         } else {
-            cout << " Opcion inválida, se cancelará la inversión" << endl;
+            cout << " Opcion invï¿½lida, se cancelarï¿½ la inversiï¿½n" << endl;
             return;
         }
     }
@@ -631,12 +631,12 @@ void invertir() {
 	// Convierte tasa anual a mensual
     double tasaMensual = pow(1.0 + tasaAnual, 1.0 / 12.0) - 1.0; 
 
-    // Fórmula de interés compuesto: VF = VP * (1 + im)^n
-    // Capitalización mensual
+    // Fï¿½rmula de interï¿½s compuesto: VF = VP * (1 + im)^n
+    // Capitalizaciï¿½n mensual
 	double valorFuturo = monto * pow(1.0 + tasaMensual, meses);
     double ganancia    = valorFuturo - monto;
 
-    // Estructura de inversión
+    // Estructura de inversiï¿½n
     Inversion inv;
     inv.numeroCuenta = num;
     inv.tipo         = (tipo == 1) ? "Alto rendimiento" : "CDT";
@@ -672,14 +672,14 @@ void invertir() {
 	guardarInversion();
 
 	ofstream trans("transacciones.txt", ios::app);
-	trans << "INVERSIÓN cuenta " << num
+	trans << "INVERSIï¿½N cuenta " << num
     	  << " tipo: " << (tipo == 1 ? "Alto rendimiento" : "CDT")
       	  << " monto: " << monto
 		  << " meses: " << meses
       	  << " valor futuro: " << valorFuturo << endl;
 	trans.close();
 
-	cout << " Inversión realizada... Saldo restante: $" << cuentas[indice].saldo << endl;
+	cout << " Inversiï¿½n realizada... Saldo restante: $" << cuentas[indice].saldo << endl;
 
 }
 
