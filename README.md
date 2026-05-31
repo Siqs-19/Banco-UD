@@ -11,15 +11,18 @@ Toda la información se guarda automáticamente en archivos de texto para que no
 
 # Requisitos: 
 
--Compilador de C++ (g++ recomendado).
+-Compilador de C++ (g++ o MinGW recomendado).
 
 -Sistema operativo: Windows, Linux o macOS.
 
 -No requiere librerías externas.
 
--Instalar compilador MinGW (Windows) o g++ (Linux/macOS) y la extensión C/C++ (para ejecutar con Visual Studio Code) 	
+-Instalar la extensión C/C++ (para ejecutar con Visual Studio Code). 	
 
 # Ejecución: 
+
+Para todas las opciones se debe descargar el archivo BancoUD.cpp (el resto de archivos no son necesarios) y se debe tener presente la ubicacion del archivo, es recomendable crear una carpeta especifica para el programa. 
+
 ### OPCION 1 - EJECUCIÓN MEDIANTE UNA TERMINAL:
 
   Abrir una terminal en la carpeta donde está el archivo BancoUD.cpp y ejecutar:
